@@ -1,0 +1,5 @@
+<resources>/
+    <string name="app_name">MetroMusic</string>
+    <string name="title_tuner">Accordatore</string>
+    <string name="title_settings">Impostazioni Applicazione</string>
+</resources>

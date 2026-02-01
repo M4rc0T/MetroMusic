@@ -92,6 +92,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Metronomo"
+            android:textSize="11sp"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="?attr/colorPrimary" />
 
@@ -101,7 +102,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Accordatore"
-            style="@style/Widget.AppCompat.Button.Borderless" />
+            android:textSize="11sp"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:textColor="@color/gray_medium" />
 
         <Button
             android:id="@+id/btn_to_settings"
@@ -109,7 +112,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Impostazioni"
-            style="@style/Widget.AppCompat.Button.Borderless" />
+            android:textSize="11sp"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:textColor="@color/gray_medium"/>
 
     </LinearLayout>
 

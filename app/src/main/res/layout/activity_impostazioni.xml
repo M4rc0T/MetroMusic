@@ -4,42 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
     android:background="?attr/colorSurface"
-    tools:context=".ImpostazioniActivity">
+    android:padding="16dp"
+    tools:context=".ImpostazioniActivity"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="3dp">
 
     <TextView
         android:id="@+id/label_bpm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="80dp"
         android:text="BPM Predefinito:"
-        android:textSize="18sp"
         android:textColor="?android:attr/textColorPrimary"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/input_default_bpm"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:hint="Es. 120"
-        android:inputType="number"
-        android:maxLength="3"
-        android:minHeight="48dp"
-        android:textColor="?android:attr/textColorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label_bpm" />
 
     <Button
         android:id="@+id/btn_save_settings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:text="SALVA"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/input_default_bpm" />
 
@@ -47,20 +36,22 @@
         android:id="@+id/divider_middle"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="28dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintTop_toBottomOf="@id/btn_save_settings" />
+        app:layout_constraintTop_toBottomOf="@id/btn_save_settings"
+        tools:layout_editor_absoluteX="16dp" />
 
     <TextView
         android:id="@+id/label_theme"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:text="Modalità Scura (Dark Mode)"
-        android:textSize="18sp"
         android:textColor="?android:attr/textColorPrimary"
+        android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/switch_dark_mode"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/divider_middle" />
 
@@ -70,17 +61,33 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="@id/label_theme"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/label_theme" />
+        app:layout_constraintTop_toTopOf="@id/label_theme"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/input_default_bpm"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="Es. 120"
+        android:inputType="number"
+        android:maxLength="3"
+        android:minHeight="48dp"
+        android:textColor="?android:attr/textColorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label_bpm" />
 
     <LinearLayout
         android:id="@+id/bottom_navigation_bar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="?attr/colorSurface"
+        android:elevation="8dp"
         android:orientation="horizontal"
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
-        android:background="?attr/colorSurface"
-        android:elevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -91,7 +98,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Metronomo" />
+            android:text="Metronomo"
+            android:textSize="11sp"
+            android:textColor="@color/gray_medium"/>
 
         <Button
             android:id="@+id/btn_to_tuner"
@@ -99,7 +108,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Accordatore" />
+            android:text="Accordatore"
+            android:textSize="11sp"
+            android:textColor="@color/gray_medium" />
 
         <Button
             android:id="@+id/btn_to_settings"
@@ -108,6 +119,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Impostazioni"
+            android:textSize="11sp"
             android:textColor="?attr/colorPrimary" />
     </LinearLayout>
 

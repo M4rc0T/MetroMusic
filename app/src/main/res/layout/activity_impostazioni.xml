@@ -62,7 +62,7 @@
         app:layout_constraintBottom_toBottomOf="@id/label_theme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/label_theme"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.5" />
 
     <EditText
         android:id="@+id/input_default_bpm"

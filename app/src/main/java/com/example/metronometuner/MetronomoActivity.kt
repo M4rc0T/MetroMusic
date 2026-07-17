@@ -149,7 +149,7 @@ class MetronomoActivity : AppCompatActivity() {
             startService(serviceIntent)
 
             isMetronomeRunning = false
-            startStopButton.text = "AVVIA METRONOMO"
+            startStopButton.text = getString(R.string.btn_start_metronome)
             startStopButton.backgroundTintList = ContextCompat.getColorStateList(this, android.R.color.holo_green_dark)
         } else {
             serviceIntent.action = MetronomeService.ACTION_START_METRONOME
@@ -165,7 +165,7 @@ class MetronomoActivity : AppCompatActivity() {
             }
 
             isMetronomeRunning = true
-            startStopButton.text = "STOP METRONOMO"
+            startStopButton.text = getString(R.string.btn_stop_metronome)
             startStopButton.backgroundTintList = ContextCompat.getColorStateList(this, android.R.color.holo_red_dark)
         }
     }
@@ -197,10 +197,10 @@ class MetronomoActivity : AppCompatActivity() {
         isMetronomeRunning = MetronomeService.isRunning
 
         if (isMetronomeRunning) {
-            startStopButton.text = "STOP METRONOMO"
+            startStopButton.text = getString(R.string.btn_stop_metronome)
             startStopButton.backgroundTintList = ContextCompat.getColorStateList(this, android.R.color.holo_red_dark)
         } else {
-            startStopButton.text = "AVVIA METRONOMO"
+            startStopButton.text = getString(R.string.btn_start_metronome)
             startStopButton.backgroundTintList = ContextCompat.getColorStateList(this, android.R.color.holo_green_dark)
         }
     }

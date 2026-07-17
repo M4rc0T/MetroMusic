@@ -1,5 +1,32 @@
-<resources>/
+<resources>
     <string name="app_name">MetroMusic</string>
     <string name="title_tuner">Accordatore</string>
-    <string name="title_settings">Impostazioni Applicazione</string>
+    <string name="title_settings">Impostazioni</string>
+    <string name="title_metronome">Metronomo</string>
+
+    <!-- Metronomo -->
+    <string name="btn_start_metronome">AVVIA METRONOMO</string>
+    <string name="btn_stop_metronome">STOP METRONOMO</string>
+    <string name="label_time_sig">Tipo di Tempo:</string>
+    <string name="bpm_unit">BPM</string>
+
+    <!-- Accordatore -->
+    <string name="btn_change_a4">CAMBIA A4</string>
+    <string name="btn_note_chooser">Scegli Nota Base</string>
+    <string name="indicator_flat">BEMOLLE</string>
+    <string name="indicator_sharp">DIESIS</string>
+    <string name="a4_display_format">A4: %.1f Hz</string>
+    <string name="stop_sound">STOP SUONO</string>
+    <string name="close">CHIUDI</string>
+
+    <!-- Impostazioni -->
+    <string name="label_default_bpm">BPM Predefinito:</string>
+    <string name="label_dark_mode">Modalità Scura (Dark Mode)</string>
+    <string name="btn_save">SALVA</string>
+    <string name="msg_saved">Salvato!</string>
+    <string name="msg_invalid_bpm">BPM non valido</string>
+
+    <!-- Notifiche -->
+    <string name="notif_title">Metronomo in esecuzione</string>
+    <string name="notif_content">Ritmo: %1$d BPM</string>
 </resources>

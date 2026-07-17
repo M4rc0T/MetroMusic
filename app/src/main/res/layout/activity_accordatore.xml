@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="88dp"
-        android:text="A4: 440.0 Hz"
+        android:text="@string/a4_display_format"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -22,7 +22,7 @@
         android:id="@+id/btn_change_a4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CAMBIA A4"
+        android:text="@string/btn_change_a4"
         app:layout_constraintBottom_toBottomOf="@id/a4_ref_display"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/a4_ref_display" />
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginBottom="8dp"
-        android:text="FLAT"
+        android:text="@string/indicator_flat"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@id/tuning_bar"
@@ -68,7 +68,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="8dp"
-        android:text="SHARP"
+        android:text="@string/indicator_sharp"
         android:textColor="@android:color/holo_red_dark"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@id/tuning_bar"
@@ -94,7 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="Scegli Nota Base"
+        android:text="@string/btn_note_chooser"
         app:layout_constraintBottom_toTopOf="@id/note_display"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -116,7 +116,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Metronomo"
+            android:text="@string/title_metronome"
             android:textSize="11sp"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="@color/gray_medium"/>
@@ -126,7 +126,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Accordatore"
+            android:text="@string/title_tuner"
             android:textSize="11sp"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="?attr/colorPrimary" />
@@ -136,7 +136,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Impostazioni"
+            android:text="@string/title_settings"
             android:textSize="11sp"
             style="@style/Widget.AppCompat.Button.Borderless"
             android:textColor="@color/gray_medium"/>

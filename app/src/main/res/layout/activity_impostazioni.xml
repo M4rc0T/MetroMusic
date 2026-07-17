@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:text="BPM Predefinito:"
+        android:text="@string/label_default_bpm"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -26,7 +26,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:text="SALVA"
+        android:text="@string/btn_save"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:text="Modalità Scura (Dark Mode)"
+        android:text="@string/label_dark_mode"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="18sp"
         app:layout_constraintEnd_toStartOf="@+id/switch_dark_mode"
@@ -98,7 +98,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Metronomo"
+            android:text="@string/title_metronome"
             android:textSize="11sp"
             android:textColor="@color/gray_medium"/>
 
@@ -108,7 +108,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Accordatore"
+            android:text="@string/title_tuner"
             android:textSize="11sp"
             android:textColor="@color/gray_medium" />
 
@@ -118,7 +118,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Impostazioni"
+            android:text="@string/title_settings"
             android:textSize="11sp"
             android:textColor="?attr/colorPrimary" />
     </LinearLayout>

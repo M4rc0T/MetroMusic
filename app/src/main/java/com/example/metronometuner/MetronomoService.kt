@@ -199,8 +199,8 @@ class MetronomeService : Service() {
         )
 
         return NotificationCompat.Builder(this, NOTIFICATION_CHANNEL_ID)
-            .setContentTitle("Metronomo in esecuzione")
-            .setContentText("Ritmo: $bpm BPM")
+            .setContentTitle(getString(R.string.notif_title))
+            .setContentText(getString(R.string.notif_content, bpm))
             .setSmallIcon(android.R.drawable.ic_media_play)
             .setContentIntent(pendingIntent)
             .setPriority(NotificationCompat.PRIORITY_LOW)

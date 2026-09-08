@@ -3,7 +3,6 @@
 
 [![Platform](https://img.shields.io/badge/Platform-Android-3DDC84.svg?style=flat-square&logo=android)](https://www.android.com/)
 [![Kotlin](https://img.shields.io/badge/Language-Kotlin-7F52FF.svg?style=flat-square&logo=kotlin)](https://kotlinlang.org/)
-[![License](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](LICENSE)
 
 MetroMusic è un'applicazione "all-in-one" progettata per musicisti e cantanti che cercano precisione e semplicità. Senza pubblicità, senza tracciamento e ottimizzata per l'uso professionale sul leggio.
 

@@ -1,6 +1,5 @@
 package com.example.metronometuner
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -26,7 +25,7 @@ class ImpostazioniActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // 1. Applica il tema PRIMA di super.onCreate
-        val prefs = getSharedPreferences(prefName, Context.MODE_PRIVATE)
+        val prefs = getSharedPreferences(prefName, MODE_PRIVATE)
         val isDark = prefs.getBoolean(prefDarkMode, false)
         AppCompatDelegate.setDefaultNightMode(
             if (isDark) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO

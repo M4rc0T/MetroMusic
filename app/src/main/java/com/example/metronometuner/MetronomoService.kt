@@ -6,7 +6,6 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
-import android.content.Context
 import android.content.Intent
 import android.media.AudioAttributes
 import android.media.AudioFocusRequest
@@ -19,7 +18,6 @@ import android.os.VibratorManager
 import android.util.Log
 import androidx.core.app.NotificationCompat
 import kotlinx.coroutines.*
-import androidx.core.content.ContextCompat
 import android.os.VibrationEffect
 
 class MetronomeService : Service() {
@@ -52,14 +50,14 @@ class MetronomeService : Service() {
     override fun onCreate() {
         super.onCreate()
         toneGenerator = ToneGenerator(AudioManager.STREAM_MUSIC, 100)
-        audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+        audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
 
         vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val vibratorManager = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+            val vibratorManager = getSystemService(VIBRATOR_MANAGER_SERVICE) as VibratorManager
             vibratorManager.defaultVibrator
         } else {
             @Suppress("DEPRECATION")
-            getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            getSystemService(VIBRATOR_SERVICE) as Vibrator
         }
         Log.i("MetronomeService", "Servizio inizializzato.")
     }
@@ -85,7 +83,7 @@ class MetronomeService : Service() {
                 startForeground(NOTIFICATION_ID, createNotification())
 
                 // Notifica al sistema che la notifica è cambiata (per aggiornare il testo dei BPM)
-                val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
                 manager.notify(NOTIFICATION_ID, createNotification())
 
                 if (action == ACTION_START_METRONOME) {
@@ -144,32 +142,59 @@ class MetronomeService : Service() {
     private fun startTickingLoop() {
         if (isTicking) return
         isTicking = true
-        MetronomeService.isRunning = true // COMUNICA ALL'APP: Il metronomo è partito
+        isRunning = true // COMUNICA ALL'APP: Il metronomo è partito
         currentBeat = 0
 
+        /*MODIFICA DRIFT */
         tickingJob = serviceScope.launch {
-            while (isActive && isTicking) {
-                val timePerBeat = (60000L / bpm).toLong()
-                currentBeat = (currentBeat % beatsPerMeasure) + 1
+            // Memorizziamo il momento esatto in cui inizia il primo battito
+            var nextBeatTime = System.currentTimeMillis()
 
-                val toneType = if (currentBeat == 1) ToneGenerator.TONE_PROP_BEEP else ToneGenerator.TONE_PROP_ACK
+            while (isActive && isTicking) {
+                val timePerBeat = (60000L / bpm)
+
+                // --- LOGICA DEL BATTITO (Invariata) ---
+                currentBeat = (currentBeat % beatsPerMeasure) + 1
+                val toneType =
+                    if (currentBeat == 1) ToneGenerator.TONE_PROP_BEEP else ToneGenerator.TONE_PROP_ACK
                 toneGenerator.startTone(toneType, 50)
 
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    vibrator.vibrate(VibrationEffect.createOneShot(50, VibrationEffect.DEFAULT_AMPLITUDE))
+                    vibrator.vibrate(
+                        VibrationEffect.createOneShot(
+                            50,
+                            VibrationEffect.DEFAULT_AMPLITUDE
+                        )
+                    )
                 } else {
                     @Suppress("DEPRECATION")
                     vibrator.vibrate(50)
                 }
 
-                delay(timePerBeat)
+
+                // CALCOLO DI PRECISIONE:
+                // 1. Programmiamo il momento teorico del PROSSIMO battito
+                nextBeatTime += timePerBeat
+
+                // 2. Calcoliamo quanto tempo manca da ADESSO a quel momento teorico
+                val currentTime = System.currentTimeMillis()
+                val sleepTime = nextBeatTime - currentTime
+
+                // 3. Se siamo ancora in tempo (sleepTime > 0), aspettiamo solo la differenza.
+                // Se siamo in ritardo (sleepTime <= 0), non aspettiamo affatto e passiamo subito al prossimo giro.
+                if (sleepTime > 0) {
+                    delay(sleepTime)
+                } else {
+                    // Drift correction: abbiamo accumulato ritardo, saltiamo l'attesa
+                    // per rimetterci in riga col tempo matematico.
+                }
             }
         }
     }
 
     private fun stopTickingLoop() {
         isTicking = false
-        MetronomeService.isRunning = false // COMUNICA ALL'APP: Il metronomo si è fermato
+        isRunning = false // COMUNICA ALL'APP: Il metronomo si è fermato
         tickingJob?.cancel()
     }
 
@@ -180,7 +205,7 @@ class MetronomeService : Service() {
                 "Riproduzione Metronomo",
                 NotificationManager.IMPORTANCE_LOW
             )
-            val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            val manager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
             manager.createNotificationChannel(channel)
         }
 

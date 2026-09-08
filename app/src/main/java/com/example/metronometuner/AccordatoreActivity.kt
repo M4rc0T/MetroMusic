@@ -21,24 +21,20 @@ import android.content.Intent
 import android.media.AudioAttributes
 import android.media.AudioFormat
 import android.media.AudioTrack
-import android.media.AudioManager
 import kotlin.math.log
 import kotlin.math.pow
 import kotlin.math.sin
 import kotlin.math.PI
-import kotlin.math.roundToInt
 import kotlin.concurrent.thread
 
-private var audioRecorder: AudioRecorder? = null
-private lateinit var frequencyTextView: TextView
-private lateinit var rootLayout: View
-private lateinit var a4RefDisplay: TextView
-private val PREF_KEY_A4_FREQ = "a4_reference_frequency"
-private val DEFAULT_A4_FREQ = 440.0f
-private var referenceFrequency = DEFAULT_A4_FREQ.toDouble()
-
 class AccordatoreActivity : AppCompatActivity() {
-
+    private var audioRecorder: AudioRecorder? = null
+    private lateinit var frequencyTextView: TextView
+    private lateinit var rootLayout: View
+    private lateinit var a4RefDisplay: TextView
+    private val PREF_KEY_A4_FREQ = "a4_reference_frequency"
+    private val DEFAULT_A4_FREQ = 440.0f
+    private var referenceFrequency = DEFAULT_A4_FREQ.toDouble()
     private val RECORD_AUDIO_PERMISSION = Manifest.permission.RECORD_AUDIO
     private lateinit var noteDisplay: TextView
     private lateinit var tuningBar: ProgressBar
@@ -51,11 +47,11 @@ class AccordatoreActivity : AppCompatActivity() {
     private val requestPermissionLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted: Boolean ->
             if (isGranted) startTunerFunctionality()
-            else Toast.makeText(this, "Permesso Microfono Negato.", Toast.LENGTH_LONG).show()
+            else Toast.makeText(this, getString(R.string.error_permission_denied), Toast.LENGTH_LONG).show()
         }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val prefs = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
+        val prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE)
         val isDark = prefs.getBoolean("dark_mode_enabled", false)
         if (isDark) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -78,7 +74,7 @@ class AccordatoreActivity : AppCompatActivity() {
         val noteChooserButton: Button = findViewById(R.id.btn_note_chooser)
 
         referenceFrequency = prefs.getFloat(PREF_KEY_A4_FREQ, DEFAULT_A4_FREQ).toDouble()
-        a4RefDisplay.text = "A4: ${String.format("%.1f", referenceFrequency)} Hz"
+        a4RefDisplay.text = getString(R.string.a4_display_format, referenceFrequency)
 
         changeA4Button.setOnClickListener { showA4ChangeDialog() }
         noteChooserButton.setOnClickListener { showNoteChooserDialog() }
@@ -104,12 +100,30 @@ class AccordatoreActivity : AppCompatActivity() {
         }
     }
 
+    /*MODIFICA RICHIESTA PERMESSO MICROFONO*/
     private fun checkMicrophonePermission() {
-        if (ContextCompat.checkSelfPermission(this, RECORD_AUDIO_PERMISSION) == PackageManager.PERMISSION_GRANTED) {
-            startTunerFunctionality()
-        } else {
-            requestPermissionLauncher.launch(RECORD_AUDIO_PERMISSION)
+        when {
+            ContextCompat.checkSelfPermission(this, RECORD_AUDIO_PERMISSION) == PackageManager.PERMISSION_GRANTED -> {
+                startTunerFunctionality()
+            }
+            // CASO 1: L'utente ha già negato una volta, spieghiamo perché serve
+            shouldShowRequestPermissionRationale(RECORD_AUDIO_PERMISSION) -> {
+                showPermissionRationaleDialog()
+            }
+            // CASO 2: Prima volta o negazione definitiva
+            else -> {
+                requestPermissionLauncher.launch(RECORD_AUDIO_PERMISSION)
+            }
         }
+    }
+
+    private fun showPermissionRationaleDialog() {
+        AlertDialog.Builder(this)
+            .setTitle("Accesso al Microfono")
+            .setMessage("L'accordatore necessita del microfono per analizzare le frequenze del tuo strumento. Senza questo permesso, l'app non può funzionare.")
+            .setPositiveButton("Riprova") { _, _ -> requestPermissionLauncher.launch(RECORD_AUDIO_PERMISSION) }
+            .setNegativeButton("Annulla", null)
+            .show()
     }
 
     private fun startTunerFunctionality() {
@@ -227,24 +241,24 @@ class AccordatoreActivity : AppCompatActivity() {
     }
 
     private fun showA4ChangeDialog() {
-        val prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE)
         val currentFreq = prefs.getFloat(PREF_KEY_A4_FREQ, DEFAULT_A4_FREQ)
         val input = EditText(this)
         input.inputType = android.text.InputType.TYPE_CLASS_NUMBER or android.text.InputType.TYPE_NUMBER_FLAG_DECIMAL
         input.setText(currentFreq.toString())
         AlertDialog.Builder(this)
-            .setTitle("Modifica Frequenza A4")
-            .setMessage("Inserisci frequenza (400-460 Hz):")
+            .setTitle(getString(R.string.a4_dialog_title))
+            .setMessage(getString(R.string.a4_dialog_message))
             .setView(input)
-            .setPositiveButton("Salva") { _, _ ->
+            .setPositiveButton(getString(R.string.btn_save)) { _, _ ->
                 val newFreq = input.text.toString().toFloatOrNull()
                 if (newFreq != null && newFreq >= 400f && newFreq <= 460f) {
                     prefs.edit().putFloat(PREF_KEY_A4_FREQ, newFreq).apply()
                     referenceFrequency = newFreq.toDouble()
-                    a4RefDisplay.text = "A4: ${String.format("%.1f", newFreq)} Hz"
+                    a4RefDisplay.text = getString(R.string.a4_display_format, referenceFrequency)
                 }
             }
-            .setNegativeButton("Annulla", null)
+            .setNegativeButton(getString(R.string.btn_cancel), null)
             .show()
     }
 }

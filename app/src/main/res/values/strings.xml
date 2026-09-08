@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MetroMusic</string>
+    <string name="app_name" translatable="false">MetroMusic</string>
     <string name="title_tuner">Accordatore</string>
     <string name="title_settings">Impostazioni</string>
     <string name="title_metronome">Metronomo</string>
@@ -12,6 +12,10 @@
 
     <!-- Accordatore -->
     <string name="btn_change_a4">CAMBIA A4</string>
+    <string name="error_permission_denied">Permesso Microfono Negato.</string>
+    <string name="a4_dialog_title">Modifica Frequenza A4</string>
+    <string name="a4_dialog_message">Inserisci frequenza (400-460 Hz):</string>
+    <string name="btn_cancel">Annulla</string>
     <string name="btn_note_chooser">Scegli Nota Base</string>
     <string name="indicator_flat">BEMOLLE</string>
     <string name="indicator_sharp">DIESIS</string>

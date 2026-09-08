@@ -33,12 +33,15 @@
 
         <activity
             android:name=".ImpostazioniActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".AccordatoreActivity"
+            android:screenOrientation="portrait"
             android:exported="false" />
         <activity
             android:name=".MetronomoActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:theme="@style/Theme.MetronomeTuner">
             <intent-filter>

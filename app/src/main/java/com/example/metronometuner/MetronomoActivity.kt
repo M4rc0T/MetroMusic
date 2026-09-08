@@ -1,6 +1,5 @@
 package com.example.metronometuner
 
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -35,10 +34,9 @@ class MetronomoActivity : AppCompatActivity() {
     // Chiavi SharedPreferences
     private val PREF_NAME = "AppPreferences"
     private val PREF_KEY_DEFAULT_BPM = "default_bpm"
-    private val PREF_KEY_DARK_MODE = "dark_mode_enabled"
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        val prefs = getSharedPreferences("AppPreferences", Context.MODE_PRIVATE)
+        val prefs = getSharedPreferences("AppPreferences", MODE_PRIVATE)
         val isDark = prefs.getBoolean("dark_mode_enabled", false)
         if (isDark) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -86,15 +84,9 @@ class MetronomoActivity : AppCompatActivity() {
         finish()
     }
 
-    private fun applySavedTheme() {
-        val prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        val isDarkModeEnabled = prefs.getBoolean(PREF_KEY_DARK_MODE, false)
-        val themeMode = if (isDarkModeEnabled) AppCompatDelegate.MODE_NIGHT_YES else AppCompatDelegate.MODE_NIGHT_NO
-        AppCompatDelegate.setDefaultNightMode(themeMode)
-    }
 
     private fun loadInitialBPM() {
-        val prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        val prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE)
         currentBPM = prefs.getInt(PREF_KEY_DEFAULT_BPM, 120)
         bpmDisplay.text = currentBPM.toString()
         bpmSeekBar.progress = currentBPM
@@ -185,8 +177,8 @@ class MetronomoActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        // 1. CARICAMENTO BPM AGGIORNATO (Fondamentale!)
-        val prefs = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+        // 1. CARICAMENTO BPM AGGIORNATO
+        val prefs = getSharedPreferences(PREF_NAME, MODE_PRIVATE)
         currentBPM = prefs.getInt(PREF_KEY_DEFAULT_BPM, 120)
 
         // 2. AGGIORNAMENTO UI
